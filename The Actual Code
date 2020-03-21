@@ -1,35 +1,40 @@
-## Use this if your stuck I know you are I don't blame you 
+## Pretty Bad Code don't USE !!!
 
 from collections import Counter
-for Ok in range(10):
-    z = [input() for i in range(9)]
-    z = [i.replace("$"," ") for i in z]
-    y = []
-    for i in z:
-        if i != "?":
-            y.append(int(i))
-        else:
-            y.append(ord(i))
-    y.sort()
-    zz = Counter(y)
-    Scratch = zz[63]
-    del zz[63]
 
-    y = [V for V in zz if zz[V] == 3]
-
-    if Scratch == 9:
-        print("$1 $2 $5 $10 $50 $100 $1000 $10000 $500000 $1000000")
-    elif len(y) ==1:
-        y = [str(i) for i in y]
-        y = ["$" + i for i in y]
-        print(*y)
-    elif Scratch ==3:
-        print("$1 $2 $5 $10 $50 $100 $1000 $10000 $500000 $1000000")
+def Winner(L):
+    NN = 0
+    HH = 0
+    zz = Counter(L)
+    if zz["63"] == 9:
+        print("No Prizes Possible")
+    elif zz["63"] == 0:
+        for T in zz:
+            if zz[T] >= 3:
+                print("$" + T, end=" ")
+        print()
     else:
-        y = [V for V in zz if (zz[V] + Scratch >= 3)]
-        if len(y) == 0:
-            print("No Prizes Possible")
+        for V in zz:
+            KK = zz[V] + zz["63"]
+            if KK >=3:
+                print("$" + V, end=" ")
+                NN+=1
+            elif KK < 3:
+                NN+=1
+                if NN > 8:
+                    print("No Prizes Possible")
+        print()
+
+for d in range(10):
+    z = [input() for i in range(9)]
+    yy = []
+    for g in z:
+        if g == "?":
+            yy.append(ord(g))
         else:
-            y = [str(i) for i in y]
-            y = ["$" + i for i in y]
-            print(*y)
+            yy.append(g.replace("$", ""))
+
+    yy = [int(i) for i in yy]
+    yy.sort()
+    yy = [str(i) for i in yy]
+    Winner(yy)
